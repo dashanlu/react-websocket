@@ -16,10 +16,20 @@ export const websocketReducer = (state = {status: 'DISCONNECTED', size: 0, curre
     }
 };
 
-export const pingTask = (req) => {
+export const pingTextTask = (req) => {
     console.log('fire pingTask');
     return {
         type: 'SEND',
+        data_type: 'TEXT',
+        request: req
+    }
+};
+
+export const pingBinaryTask = (req) => {
+    console.log('fire pingTask');
+    return {
+        type: 'SEND',
+        data_type: 'BINARY',
         request: req
     }
 };
