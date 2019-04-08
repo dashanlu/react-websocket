@@ -10,14 +10,14 @@ export const WebsocketMiddleware = store => {
 
     websocket.onmessage = (event) => {
         console.log('receiving ' + event.data);
-        store.dispatch(receivedTask());
+        store.dispatch(receivedTask(event.data));
     };
 
     return next => action => {
         const {type} = action;
         switch (type) {
             case'SEND':
-                websocket.send('hello');
+                websocket.send(action.request);
                 break;
             default:
                 break;

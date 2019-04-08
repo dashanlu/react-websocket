@@ -1,5 +1,5 @@
-export const websocketReducer = (state = {status: 'DISCONNECTED', size: 0}, action) => {
-    const {status, size = 0} = state;
+export const websocketReducer = (state = {status: 'DISCONNECTED', size: 0, currentResp: ''}, action) => {
+    const {size = 0} = state;
     switch (action.type) {
         case 'SENT':
             state = {status: 'CONNECTED', size};
@@ -9,18 +9,18 @@ export const websocketReducer = (state = {status: 'DISCONNECTED', size: 0}, acti
             return state;
         case 'RECEIVED':
             console.log('processing received data')
-            console.log('current state', state);
-            state = {status: 'CONNECTED', size: size + 1};
+            state = {status: 'CONNECTED', size: size + 1, currentResp: action.response};
             return state;
         default:
             return state;
     }
 };
 
-export const pingTask = () => {
+export const pingTask = (req) => {
     console.log('fire pingTask');
     return {
-        type: 'SEND'
+        type: 'SEND',
+        request: req
     }
 };
 
@@ -32,8 +32,9 @@ export const connectTask = () => ({
     type: 'CONNECT'
 });
 
-export const receivedTask = () => ({
-    type: 'RECEIVED'
+export const receivedTask = (resp) => ({
+    type: 'RECEIVED',
+    response: resp
 });
 
 export const combinedReducer = {
