@@ -1,4 +1,4 @@
-export const websocketReducer = (state = {status: 'DISCONNECTED', size: 0, currentResp: ''}, action) => {
+export const websocketReducer = (state = {status: 'DISCONNECTED', size: 0, currentResp: {}}, action) => {
     const {size = 0} = state;
     switch (action.type) {
         case 'SENT':
@@ -8,7 +8,7 @@ export const websocketReducer = (state = {status: 'DISCONNECTED', size: 0, curre
             state = {status: 'CONNECTED', size};
             return state;
         case 'RECEIVED':
-            console.log('processing received data')
+            console.log('processing received data');
             state = {status: 'CONNECTED', size: size + 1, currentResp: action.response};
             return state;
         default:

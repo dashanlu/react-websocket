@@ -15,10 +15,11 @@ const WebsocketClient = (props) => {
         websocket, dispatch
     } = props;
     console.log('current websocket state is ', websocket);
-    const {status, size, currentResp} = websocket;
+    const {status, size, currentResp = {}} = websocket;
     const statusInfo = 'Websocket status :' + status;
-    const sizeOfMessages = 'messages :' + size;
-    const currentResponse = 'current response :' + currentResp;
+    const sizeOfMessages = 'number of requests :' + size;
+    const {name = null, age = null} = currentResp;
+    const currentResponse = 'current person name :' + name + ' and age :' + age;
     return (
         <Fragment>
             <div>{statusInfo}</div>
